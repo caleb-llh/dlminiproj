@@ -1,5 +1,6 @@
 import os
 import random
+import pickle
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -80,7 +81,8 @@ def train(device, loadertr, loadervl):
     criterion = nn.BCEWithLogitsLoss()
     best_measure_ls = []
     for learn_rate in LEARN_RATES:
-        print("Learn rate: {}".format(learn_rate))
+        title = "Learn rate: {}".format(learn_rate)
+        print(title)
         optimizer = torch.optim.SGD(model.parameters(),lr=learn_rate, momentum=0.9, weight_decay=args.weight_decay)
         best_epoch, best_measure, train_loss_ls, val_acc_ls = train_modelcv(learn_rate=learn_rate,
                                                                                                     dataloader_cvtrain=loadertr, 
@@ -94,7 +96,7 @@ def train(device, loadertr, loadervl):
         best_measure_ls.append(best_measure)
         print("Training completed for learn rate = {}.\nBest epoch: {} \nBest performance: {}".format(learn_rate,best_epoch, best_measure))
         print('-' * 10)
-        print("\n")
+        print()
 
         ## save train log
         with open(os.path.join(args.saved_pkl_dir,'train_loss_{}.pkl'.format(str(learn_rate)[2:])), 'wb') as f:
@@ -106,7 +108,7 @@ def train(device, loadertr, loadervl):
         epochs = list(range(len(train_loss_ls)))
 
         plt.figure()
-        plt.title("Learning rate: {}".format(learn_rate))
+        plt.title(title)
         plt.subplot(2, 1, 1)
         plt.plot(epochs, train_loss_ls, '.-')
         plt.ylabel('Losses')
