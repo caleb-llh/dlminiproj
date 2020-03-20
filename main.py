@@ -36,6 +36,7 @@ def train_epoch(model,  trainloader,  criterion, device, optimizer):
         loss.backward()
         optimizer.step()
         losses.append(loss.item())
+        print("\r{}%".format(100*batch_idx/len(trainloader)),end='') # epoch progress
 
     epoch_loss = sum(losses)/len(trainloader)
     return epoch_loss
@@ -45,31 +46,31 @@ def train_modelcv(learn_rate, dataloader_cvtrain, dataloader_cvtest, model, crit
     best_measure = 0
     best_epoch =-1
     train_loss_ls = []
-    val_loss_ls = []
+    # val_loss_ls = []
     val_acc_ls = []
     for epoch in range(num_epochs):
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         print('-' * 10)
 
-        model.train(True)
+        model.train()
         train_loss=train_epoch(model, dataloader_cvtrain, criterion, device, optimizer)
         train_loss_ls.append(train_loss)
         #scheduler.step()
         print("train loss",train_loss)
 
-        model.train(False)
-        measure,val_loss = utils.evaluate(model, dataloader_cvtest, criterion, device)
-        val_loss_ls.append(val_loss)
+        measure = utils.evaluate(model, dataloader_cvtest, criterion, device)
+        # val_loss_ls.append(val_loss)
         val_acc_ls.append(measure)
         print('performance measure', measure)
 
         if measure > best_measure: 
-            bestweights= model.state_dict()
+            # save best weights
+            utils.save_model(model, os.path.join(args.saved_model_dir, "model_best_{}.pt".format(learn_rate[2:])))
             best_measure = measure
             best_epoch = epoch
             print('current best', measure, ' at epoch ', best_epoch)
 
-    return best_epoch, best_measure, bestweights, train_loss_ls, val_loss_ls, val_acc_ls
+    return best_epoch, best_measure, train_loss_ls, val_acc_ls
 
 ### training pipeline for model selection
 def train(device, loadertr, loadervl): 
@@ -77,9 +78,10 @@ def train(device, loadertr, loadervl):
     model.fc = nn.Linear(512,20)
     model.to(device)
     criterion = nn.BCEWithLogitsLoss()
+    best_measure_ls = []
     for learn_rate in LEARN_RATES:
         optimizer = torch.optim.SGD(model.parameters(),lr=learn_rate, momentum=0.9, weight_decay=args.weight_decay)
-        best_epoch, best_perfmeasure, bestweights, train_loss, val_loss, val_acc = train_modelcv(learn_rate=learn_rate,
+        best_epoch, best_measure, train_loss_ls, val_acc_ls = train_modelcv(learn_rate=learn_rate,
                                                                                                     dataloader_cvtrain=loadertr, 
                                                                                                     dataloader_cvtest=loadervl,  
                                                                                                     model=model,  
@@ -88,11 +90,44 @@ def train(device, loadertr, loadervl):
                                                                                                     scheduler=None, 
                                                                                                     num_epochs=args.num_epoch, 
                                                                                                     device=device)
+        best_measure_ls.append(best_measure)
+        print("--- Training completed for learn rate = {}.\nBest epoch: {} \nBest performance: {}".format(learn_rate,best_epoch, best_measure))
+        
+        ## save train log
+        with open(os.path.join(args.saved_pkl_dir,'train_loss_{}.pkl'.format(learn_rate[2:])), 'wb') as f:
+            pickle.dump(train_loss_ls, f)
+        with open(os.path.join(args.saved_pkl_dir,'val_acc_{}.pkl'.format(learn_rate[2:])), 'wb') as f:
+            pickle.dump(val_acc_ls, f)
+
+        ## plot train graphs
+        epochs = list(range(len(train_loss_ls)))
+
+        plt.figure()
+        plt.title("Learning rate: {}".format(learn_rate))
+        plt.subplot(2, 1, 1)
+        plt.plot(epochs, train_loss_ls, '.-')
+        plt.ylabel('Losses')
+
+        plt.subplot(2, 1, 2)
+        plt.plot(epochs, val_acc_ls, '.-')
+        plt.xlabel('Epochs')
+        plt.ylabel('Mean Average Precision')
+        
+        plt.savefig(os.path.join(args.out_dir,"train_graphs_{}".format(learn_rate[2:])), bbox_inches='tight')
+    
+    ### model selection results
+    print("Best accuracies: {}".format(best_measure_ls))
+    print("Best learn rate: {}".format(LEARN_RATES[np.argmax(best_measure_ls)]))
+
 ### produce results based on chosen model
 def results(device, loadervl, validset): 
     model = models.resnet18(pretrained=False)
     model.fc = nn.Linear(512,20)
-    model.load_state_dict(bestweights)
+    # load trained weights
+    if torch.cuda.is_available():
+        model.load_state_dict(torch.load(os.path.join(args.saved_model_dir, "model_best_{}.pt".format(args.best_learn_rate))))
+    else:
+        model.load_state_dict(torch.load(os.path.join(args.saved_model_dir, "model_best_{}.pt".format(args.best_learn_rate))),map_location=torch.device('cpu'))
     model.to(device)
     criterion = nn.BCEWithLogitsLoss()
     
@@ -108,20 +143,30 @@ def results(device, loadervl, validset):
     loadervl_tail = torch.utils.data.DataLoader(validset,batch_size=args.test_batch,shuffle=False,
                                             sampler=torch.utils.data.SubsetRandomSampler(idx_high.flatten().tolist()))
                                 
-    tail_acc = utils.tailacc(model,loadervl_tail,0.5,criterion,device).item() # change t value
+
+    tail_acc = utils.tailacc(model,loadervl_tail,0.5,device).item() # change t value
     print('tail accuracy',tail_acc)
 
     for i in random.sample(range(20), 5): # 5 random classes out of 20
-        print(validset2.list_image_sets()[i]) # class name
+        class_name = validset2.list_image_sets()[i]
+        fig = plt.figure()
+        plot_title = class_name+"_top5"
+        fig.title(plot_title)
         time.sleep(0.5)
-        for j in idx_high[:5,i]: # iterate through top 5 highest scoring images
-            plt.figure()
+        for i,j in enumerate(idx_high[:5,i]): # iterate through top 5 highest scoring images
+            fig.addsubplot(1,5,i+1)
             plt.imshow(np.transpose(validset2[j][0].numpy(),(1,2,0)))
             time.sleep(0.5)
-        for j in idx_low[:5,i]: # iterate through top 5 lowest scoring images
-            plt.figure()
+        plt.savefig(os.path.join(args.saved_img_dir,plot_title))
+
+        fig = plt.figure()
+        plot_title = class_name+"_bottom5"
+        fig.title(plot_title)
+        for i,j in enumerate(idx_low[:5,i]): # iterate through top 5 lowest scoring images
+            fig.addsubplot(1,5,i+1)
             plt.imshow(np.transpose(validset2[j][0].numpy(),(1,2,0)))
             time.sleep(0.5)
+        plt.savefig(os.path.join(args.saved_img_dir,plot_title))
 
 def main():
     ## check GPU and set seed

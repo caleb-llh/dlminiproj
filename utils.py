@@ -17,21 +17,25 @@ from torchvision import transforms
 from torch.utils.data.dataset import Dataset
 
 
+def save_model(model, save_path):
+    torch.save(model.state_dict(),save_path) 
+
 
 def evaluate(model, dataloader,criterion,device):
     model.eval()
     total=0
-    losses=[]
+    # losses=[]
     with torch.no_grad():
         for ctr, (inputs,labels) in enumerate(dataloader):
             inputs = inputs.to(device)
             outputs = model(inputs)
             labels = labels.type_as(outputs)
-            loss = criterion(outputs, labels.to(device))
-            losses.append(loss.item())
+            # loss = criterion(outputs, labels.to(device))
+            # losses.append(loss.item())
             cpuout= outputs.to('cpu')
             total += len(labels)
 
+            # append predictions and target labels
             if ctr <=0:
                 current = cpuout.clone()
                 lab = labels.to('cpu').clone()
@@ -40,14 +44,14 @@ def evaluate(model, dataloader,criterion,device):
                 lab = torch.cat((lab,labels.to('cpu')), dim=0)
 
         class_correct = np.array(average_precision_score(lab, current,average=None))
-        ave_loss = sum(losses)/len(dataloader)
+        # ave_loss = sum(losses)/len(dataloader)
 
-    return class_correct, ave_loss
+    return class_correct
 
 
     
 
-def tailacc(model, dataloader, t, criterion, device):
+def tailacc(model, dataloader, t, device):
   model.eval()
   total=0
   losses=[]
@@ -57,16 +61,16 @@ def tailacc(model, dataloader, t, criterion, device):
         inputs = inputs.to(device)
         outputs = model(inputs)
         labels = labels.type_as(outputs)
-        loss = criterion(outputs, labels.to(device))
-        losses.append(loss.item())
         cpuout= outputs.to('cpu')
         total += len(labels)
+        
+        # append predictions and target labels
         if ctr <=0:
             current = cpuout.clone()
             lab = labels.to('cpu').clone()
         else:
             current = torch.cat((current,cpuout), dim=0)    #concatenating outputs
-            lab = torch.cat((lab,labels.to('cpu')), dim=0)  #concatenating laels
+            lab = torch.cat((lab,labels.to('cpu')), dim=0)  #concatenating labels
 
   pred = torch.where(current>=t,torch.ones(current.size()),torch.zeros(current.size()))   #(condition, value for true, value for false)
   score = pred * lab
