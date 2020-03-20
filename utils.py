@@ -21,7 +21,7 @@ def save_model(model, save_path):
     torch.save(model.state_dict(),save_path) 
 
 
-def evaluate(model, dataloader,criterion,device):
+def evaluate(model, dataloader,device):
     model.eval()
     total=0
     # losses=[]
@@ -30,8 +30,6 @@ def evaluate(model, dataloader,criterion,device):
             inputs = inputs.to(device)
             outputs = model(inputs)
             labels = labels.type_as(outputs)
-            # loss = criterion(outputs, labels.to(device))
-            # losses.append(loss.item())
             cpuout= outputs.to('cpu')
             total += len(labels)
 
@@ -42,14 +40,12 @@ def evaluate(model, dataloader,criterion,device):
             else:
                 current = torch.cat((current,cpuout), dim=0)
                 lab = torch.cat((lab,labels.to('cpu')), dim=0)
-        
-        print(lab.shape)
-        print(current.shape)
+            print("\r{}%".format(100*ctr/len(dataloader)),end='') # epoch progress
 
-        class_correct = np.array(average_precision_score(lab, current,average=None))
-        # ave_loss = sum(losses)/len(dataloader)
+        class_precision = np.array(average_precision_score(lab, current,average=None))
+        ave_precision = sum(class_precision)/len(class_precision)
 
-    return class_correct
+    return class_precision, ave_precision
 
 
     
