@@ -107,8 +107,8 @@ def train(device, loadertr, loadervl):
         ## plot train graphs
         epochs = list(range(len(train_loss_ls)))
 
-        plt.figure()
-        plt.title(title)
+        fig = plt.figure()
+        fig.suptitle(title)
         plt.subplot(2, 1, 1)
         plt.plot(epochs, train_loss_ls, '.-')
         plt.ylabel('Losses')
@@ -130,9 +130,9 @@ def results(device, loadervl, validset):
     model.fc = nn.Linear(512,20)
     # load trained weights
     if torch.cuda.is_available():
-        model.load_state_dict(torch.load(os.path.join(args.saved_model_dir, "model_best_{}.pt".format(args.best_learn_rate))))
+        model.load_state_dict(torch.load(os.path.join(args.saved_model_dir, "model_best_{}.pt".format(str(args.best_learn_rate)[2:]))))
     else:
-        model.load_state_dict(torch.load(os.path.join(args.saved_model_dir, "model_best_{}.pt".format(args.best_learn_rate))),map_location=torch.device('cpu'))
+        model.load_state_dict(torch.load(os.path.join(args.saved_model_dir, "model_best_{}.pt".format(str(args.best_learn_rate))[2:])),map_location=torch.device('cpu'))
     model.to(device)
     
     ## Get class-wise average precision and mean average precision
