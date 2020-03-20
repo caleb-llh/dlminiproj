@@ -65,7 +65,7 @@ def train_modelcv(learn_rate, dataloader_cvtrain, dataloader_cvtest, model, crit
 
         if measure > best_measure: 
             # save best weights
-            utils.save_model(model, os.path.join(args.saved_model_dir, "model_best_{}.pt".format(learn_rate[2:])))
+            utils.save_model(model, os.path.join(args.saved_model_dir, "model_best_{}.pt".format(str(learn_rate)[2:])))
             best_measure = measure
             best_epoch = epoch
             print('Current best:', measure, ', at epoch', best_epoch)
@@ -80,6 +80,7 @@ def train(device, loadertr, loadervl):
     criterion = nn.BCEWithLogitsLoss()
     best_measure_ls = []
     for learn_rate in LEARN_RATES:
+        print("Learn rate: {}".format(learn_rate))
         optimizer = torch.optim.SGD(model.parameters(),lr=learn_rate, momentum=0.9, weight_decay=args.weight_decay)
         best_epoch, best_measure, train_loss_ls, val_acc_ls = train_modelcv(learn_rate=learn_rate,
                                                                                                     dataloader_cvtrain=loadertr, 
@@ -92,11 +93,13 @@ def train(device, loadertr, loadervl):
                                                                                                     device=device)
         best_measure_ls.append(best_measure)
         print("Training completed for learn rate = {}.\nBest epoch: {} \nBest performance: {}".format(learn_rate,best_epoch, best_measure))
-        
+        print('-' * 10)
+        print("\n")
+
         ## save train log
-        with open(os.path.join(args.saved_pkl_dir,'train_loss_{}.pkl'.format(learn_rate[2:])), 'wb') as f:
+        with open(os.path.join(args.saved_pkl_dir,'train_loss_{}.pkl'.format(str(learn_rate)[2:])), 'wb') as f:
             pickle.dump(train_loss_ls, f)
-        with open(os.path.join(args.saved_pkl_dir,'val_acc_{}.pkl'.format(learn_rate[2:])), 'wb') as f:
+        with open(os.path.join(args.saved_pkl_dir,'val_acc_{}.pkl'.format(str(learn_rate)[2:])), 'wb') as f:
             pickle.dump(val_acc_ls, f)
 
         ## plot train graphs
@@ -113,7 +116,7 @@ def train(device, loadertr, loadervl):
         plt.xlabel('Epochs')
         plt.ylabel('Mean Average Precision')
         
-        plt.savefig(os.path.join(args.out_dir,"train_graphs_{}".format(learn_rate[2:])), bbox_inches='tight')
+        plt.savefig(os.path.join(args.out_dir,"train_graphs_{}".format(str(learn_rate)[2:])), bbox_inches='tight')
     
     ### model selection results
     print("Best accuracies: {}".format(best_measure_ls))
