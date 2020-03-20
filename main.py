@@ -118,7 +118,7 @@ def train(device, loadertr, loadervl):
         plt.xlabel('Epochs')
         plt.ylabel('Mean Average Precision')
         
-        plt.savefig(os.path.join(args.out_dir,"train_graphs_{}".format(str(learn_rate)[2:])), bbox_inches='tight')
+        plt.savefig(os.path.join(args.saved_img_dir,"train_graphs_{}".format(str(learn_rate)[2:])), bbox_inches='tight')
     
     ### model selection results
     print("Best accuracies: {}".format(best_measure_ls))
@@ -205,8 +205,10 @@ def main():
     ## run train/results
     if args.run == 'train':
         train(device, loadertr, loadervl)
+        print("Finished training.")
     if args.run == 'results':
         results(device, loadervl, validset)
+        print("Finished producing results.")
 
 if __name__=='__main__':
     args = parser.arg_parse()
