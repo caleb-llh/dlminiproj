@@ -185,7 +185,7 @@ def main():
     ## prepare data
     transform = transforms.Compose([transforms.CenterCrop(280),
                                     transforms.ToTensor(),
-                                    transforms.Normalize((MEAN, STD))
+                                    transforms.Normalize(MEAN, STD)
                                     ])
     trainset = data.PascalVOC(args.data_dir,'train',transform)
     validset = data.PascalVOC(args.data_dir,'val',transform)
