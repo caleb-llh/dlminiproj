@@ -42,6 +42,9 @@ def evaluate(model, dataloader,criterion,device):
             else:
                 current = torch.cat((current,cpuout), dim=0)
                 lab = torch.cat((lab,labels.to('cpu')), dim=0)
+        
+        print(lab.shape)
+        print(current.shape)
 
         class_correct = np.array(average_precision_score(lab, current,average=None))
         # ave_loss = sum(losses)/len(dataloader)

@@ -49,26 +49,26 @@ def train_modelcv(learn_rate, dataloader_cvtrain, dataloader_cvtest, model, crit
     # val_loss_ls = []
     val_acc_ls = []
     for epoch in range(num_epochs):
-        print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         print('-' * 10)
+        print('Epoch {}/{}'.format(epoch, num_epochs - 1))
 
         model.train()
         train_loss=train_epoch(model, dataloader_cvtrain, criterion, device, optimizer)
         train_loss_ls.append(train_loss)
         #scheduler.step()
-        print("train loss",train_loss)
+        print("\rTrain loss: ",train_loss)
 
         measure = utils.evaluate(model, dataloader_cvtest, criterion, device)
         # val_loss_ls.append(val_loss)
         val_acc_ls.append(measure)
-        print('performance measure', measure)
+        print('Averge precision: ', measure)
 
         if measure > best_measure: 
             # save best weights
             utils.save_model(model, os.path.join(args.saved_model_dir, "model_best_{}.pt".format(learn_rate[2:])))
             best_measure = measure
             best_epoch = epoch
-            print('current best', measure, ' at epoch ', best_epoch)
+            print('Current best: ', measure, ', at epoch ', best_epoch)
 
     return best_epoch, best_measure, train_loss_ls, val_acc_ls
 
@@ -91,7 +91,7 @@ def train(device, loadertr, loadervl):
                                                                                                     num_epochs=args.num_epoch, 
                                                                                                     device=device)
         best_measure_ls.append(best_measure)
-        print("--- Training completed for learn rate = {}.\nBest epoch: {} \nBest performance: {}".format(learn_rate,best_epoch, best_measure))
+        print("Training completed for learn rate = {}.\nBest epoch: {} \nBest performance: {}".format(learn_rate,best_epoch, best_measure))
         
         ## save train log
         with open(os.path.join(args.saved_pkl_dir,'train_loss_{}.pkl'.format(learn_rate[2:])), 'wb') as f:
