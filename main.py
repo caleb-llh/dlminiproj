@@ -141,9 +141,7 @@ def results(device, loadervl, validset):
     print("Class-wise average precision")
     
     for i in range(len(class_precision)):
-        print(validset.list_image_sets()[i])
-        print(class_precision[i])
-        # print("{}: {}".format(validset.list_image_sets()[i]),class_precision[i])
+        print("{}: {}".format(validset.list_image_sets()[i],class_precision[i]))
     print("Mean average precision: {}".format(ave_precision))
 
     ## Get tail accuracy
