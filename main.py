@@ -148,7 +148,7 @@ def results(device, loadervl, validset):
     plt.axis('off')
     plt.suptitle("Class-wise average precision")
     plt.table(cellText=celltext, loc='center')
-    plt.savefig(os.path.join(args.saved_img_dir,"classwise_aveprec{}"), bbox_inches='tight')
+    plt.savefig(os.path.join(args.saved_img_dir,"classwise_aveprec"), bbox_inches='tight')
     print("\nMean average precision: {}".format(ave_precision))
 
     ## Get tail accuracy
