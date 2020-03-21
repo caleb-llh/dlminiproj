@@ -139,6 +139,8 @@ def results(device, loadervl, validset):
     ## Get class-wise average precision and mean average precision
     class_precision, ave_precision = utils.evaluate(model, loadervl, device)
     print("Class-wise average precision")
+    print(validset.list_image_sets())
+    print(class_precision)
     for i in range(len(class_precision)):
         print("{}: {}".format(validset.list_image_sets()[i]),class_precision[i])
     print("Mean average precision: {}".format(ave_precision))
