@@ -136,13 +136,13 @@ def results(device, loadervl, validset):
         model.load_state_dict(torch.load(os.path.join(args.saved_model_dir, "model_best_{}.pt".format(str(args.best_learn_rate))[2:])),map_location=torch.device('cpu'))
     model.to(device)
     
-    # ## Get class-wise average precision and mean average precision
-    # class_precision, ave_precision = utils.evaluate(model, loadervl, device)
-    # print("Class-wise average precision")
-    # print('-' * 10)    
-    # for i in range(len(class_precision)):
-    #     print("{}: {}".format(validset.list_image_sets()[i],class_precision[i]))
-    # print("\nMean average precision: {}".format(ave_precision))
+    ## Get class-wise average precision and mean average precision
+    class_precision, ave_precision = utils.evaluate(model, loadervl, device)
+    print("Class-wise average precision")
+    print('-' * 10)    
+    for i in range(len(class_precision)):
+        print("{}: {}".format(validset.list_image_sets()[i],class_precision[i]))
+    print("\nMean average precision: {}".format(ave_precision))
 
     ## Get tail accuracy
     # indices of top and bottom 50 images for each class, size = (50,20)
