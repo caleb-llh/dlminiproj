@@ -157,7 +157,7 @@ def results(device, loadervl, validset):
                                             sampler=torch.utils.data.SubsetRandomSampler(idx_high.flatten().tolist()))
                                 
 
-    t_ls, class_wise, avg = utils.tailacc(model,loadervl_tail,0.5,device) # change t value
+    t_ls, class_wise, avg = utils.tailacc(model,loadervl_tail,device) 
     # print('Tail accuracy',tail_acc)
     print("Class-wise tail accuracy shape:")
     print(np.array(class_wise).shape)
@@ -179,13 +179,13 @@ def results(device, loadervl, validset):
         for i,j in enumerate(idx_high[:5,i]): # iterate through top 5 highest scoring images
             plt.subplot(2,5,i+1)
             plt.axis('off')
-            plt.imshow(np.transpose(validset2[j][0].numpy(),(1,2,0)))
+            plt.imshow(np.transpose(validset2.__getitem__(j)[0].numpy(),(1,2,0)))
             time.sleep(0.5)
 
         for i,j in enumerate(idx_low[:5,i]): # iterate through top 5 lowest scoring images
             plt.subplot(2,5,i+6)
             plt.axis('off')
-            plt.imshow(np.transpose(validset2[j][0].numpy(),(1,2,0)))
+            plt.imshow(np.transpose(validset2.__getitem__(j)[0].numpy(),(1,2,0)))
             time.sleep(0.5)
         plt.savefig(os.path.join(args.saved_img_dir,fig_title), bbox_inches='tight')
 

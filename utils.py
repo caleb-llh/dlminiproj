@@ -51,7 +51,7 @@ def evaluate(model, dataloader,device):
 
     
 
-def tailacc(model, dataloader, t, device):
+def tailacc(model, dataloader, device):
   model.eval()
   total=0
   losses=[]
@@ -76,7 +76,7 @@ def tailacc(model, dataloader, t, device):
   current = torch.sigmoid(current)
   max_t = torch.min(torch.max(current, dim=0)[0]).item()   #max f(x)
   interval = max_t/20
-  t_ls = [ i*interval for i in range(21)]     # list of t values
+  t_ls = [ i*interval for i in range(21)]     # list of t values from 0
   class_wise=[]                                     # list of lists. Each inner list (len 20) contains class wise tail accuracy
   avg=[]                                            # list of averaged class wise accuracy
   for t in t_ls:
