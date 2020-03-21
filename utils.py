@@ -40,7 +40,7 @@ def evaluate(model, dataloader,device):
             else:
                 current = torch.cat((current,cpuout), dim=0)
                 lab = torch.cat((lab,labels.to('cpu')), dim=0)
-            print("\r{} % ".format(100*ctr/len(dataloader)),end='') # epoch progress
+            print("\revaluate() {} % ".format(100*ctr/len(dataloader)),end='') # epoch progress
         print("\r",end='')
 
         class_precision = np.array(average_precision_score(lab, current,average=None))
@@ -71,7 +71,7 @@ def tailacc(model, dataloader, t, device):
         else:
             current = torch.cat((current,cpuout), dim=0)    #concatenating outputs
             lab = torch.cat((lab,labels.to('cpu')), dim=0)  #concatenating labels
-        print("\r{} % ".format(100*ctr/len(dataloader)),end='') # epoch progress 
+        print("\rtailacc() {} % ".format(100*ctr/len(dataloader)),end='') # epoch progress 
     print("\r",end='')
   pred = torch.where(current>=t,torch.ones(current.size()),torch.zeros(current.size()))   #(condition, value for true, value for false)
   score = pred * lab
@@ -94,7 +94,7 @@ def top_50_imgs(model, dataloader, device):
             current = cpuout.clone()
           else:
             current = torch.cat((current,cpuout), dim=0)      #creating large tensor of size (dataset size, 20)
-          print("\r{} % ".format(100*ctr/len(dataloader)),end='') # epoch progress 
+          print("\rtop_50_imgs() {} % ".format(100*ctr/len(dataloader)),end='') # epoch progress 
       print("\r",end='')
   
   scores = current.numpy()
