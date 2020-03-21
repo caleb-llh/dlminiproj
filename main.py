@@ -160,7 +160,7 @@ def results(device, loadervl, validset):
     t_ls, class_wise, avg = utils.tailacc(model,loadervl_tail,0.5,device) # change t value
     # print('Tail accuracy',tail_acc)
     print("Class-wise tail accuracy shape:")
-    print(class_wise.numpy().shape)
+    print(np.array(class_wise).shape)
     
     plt.figure()
     plt.plot(t_ls,avg)
