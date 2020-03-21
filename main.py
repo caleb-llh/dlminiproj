@@ -164,7 +164,7 @@ def results(device, loadervl, validset):
         plt.title(plot_title)
         time.sleep(0.5)
         for i,j in enumerate(idx_high[:5,i]): # iterate through top 5 highest scoring images
-            plt.addsubplot(1,5,i+1)
+            plt.subplot(1,5,i+1)
             plt.imshow(np.transpose(validset2[j][0].numpy(),(1,2,0)))
             time.sleep(0.5)
         plt.savefig(os.path.join(args.saved_img_dir,plot_title))
@@ -173,7 +173,7 @@ def results(device, loadervl, validset):
         plot_title = class_name+"_bottom5"
         plot_title.title(plot_title)
         for i,j in enumerate(idx_low[:5,i]): # iterate through top 5 lowest scoring images
-            plt.addsubplot(1,5,i+1)
+            plt.subplot(1,5,i+1)
             plt.imshow(np.transpose(validset2[j][0].numpy(),(1,2,0)))
             time.sleep(0.5)
         plt.savefig(os.path.join(args.saved_img_dir,plot_title))
