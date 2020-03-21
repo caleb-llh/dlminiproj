@@ -181,7 +181,7 @@ def results(device, loadervl, validset):
             plt.axis('off')
             plt.imshow(np.transpose(validset2[j][0].numpy(),(1,2,0)))
             time.sleep(0.5)
-        plt.savefig(os.path.join(args.saved_img_dir,fig_title))
+        plt.savefig(os.path.join(args.saved_img_dir,fig_title), bbox_inches='tight')
 
 def main():
     ## check GPU and set seed
