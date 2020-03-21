@@ -138,7 +138,7 @@ def results(device, loadervl, validset):
     
     ## Get class-wise average precision and mean average precision
     class_precision, ave_precision = utils.evaluate(model, loadervl, device)
-    print("\nClass-wise average precision")
+    print("Class-wise average precision")
     print('-' * 10)    
     for i in range(len(class_precision)):
         print("{}: {}".format(validset.list_image_sets()[i],class_precision[i]))
@@ -158,7 +158,7 @@ def results(device, loadervl, validset):
                                 
 
     tail_acc = utils.tailacc(model,loadervl_tail,0.5,device).item() # change t value
-    print('\nTail accuracy',tail_acc)
+    print('Tail accuracy',tail_acc)
 
     for i in random.sample(range(20), 5): # 5 random classes out of 20
         class_name = validset2.list_image_sets()[i]
