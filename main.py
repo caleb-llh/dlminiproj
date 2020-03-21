@@ -38,7 +38,7 @@ def train_epoch(model,  trainloader,  criterion, device, optimizer):
         optimizer.step()
         losses.append(loss.item())
         print("\r{} % ".format(100*batch_idx/len(trainloader)),end='') # epoch progress
-
+    print("\r",end='')
     epoch_loss = sum(losses)/len(trainloader)
     return epoch_loss
 
@@ -57,12 +57,12 @@ def train_modelcv(learn_rate, dataloader_cvtrain, dataloader_cvtest, model, crit
         train_loss=train_epoch(model, dataloader_cvtrain, criterion, device, optimizer)
         train_loss_ls.append(train_loss)
         #scheduler.step()
-        print("\rTrain loss:",train_loss)
+        print("Train loss:",train_loss)
 
         _, measure = utils.evaluate(model, dataloader_cvtest, device)
         # val_loss_ls.append(val_loss)
         val_acc_ls.append(measure)
-        print('\rAverge precision:', measure)
+        print('Averge precision:', measure)
 
         if measure > best_measure: 
             # save best weights
@@ -142,8 +142,7 @@ def results(device, loadervl, validset):
 
     ## Get tail accuracy
     # indices of top and bottom 50 images for each class, size = (50,20)
-    # idx_high, idx_low = utils.top_50_imgs(model,loadervl,device).numpy()
-    print(utils.top_50_imgs(model,loadervl,device)) 
+    idx_high, idx_low = utils.top_50_imgs(model,loadervl,device)\
     # dataset to print the images
     validset2=data.PascalVOC(args.data_dir,'val',transforms.Compose([ 
                                     transforms.CenterCrop(280),
@@ -155,7 +154,7 @@ def results(device, loadervl, validset):
                                 
 
     tail_acc = utils.tailacc(model,loadervl_tail,0.5,device).item() # change t value
-    print('\rTail accuracy',tail_acc)
+    print('Tail accuracy',tail_acc)
 
     for i in random.sample(range(20), 5): # 5 random classes out of 20
         class_name = validset2.list_image_sets()[i]
