@@ -1,277 +1,317 @@
 cuda
 Learn rate: 0.01
+Downloading: "https://download.pytorch.org/models/resnet18-5c106cde.pth" to /root/.cache/torch/checkpoints/resnet18-5c106cde.pth
+100% 44.7M/44.7M [00:00<00:00, 221MB/s]
 ----------
 Epoch 0/19
-Train loss: 0.1891630505050361
-Averge precision: 0.6818528917878537
-Current best: 0.6818528917878537 , at epoch 0
+Train loss: 0.18916303035933213
+Averge precision: 0.6818427166986142
+Current best: 0.6818427166986142 , at epoch 0
 ----------
 Epoch 1/19
-Train loss: 0.11070113117135437
-Averge precision: 0.7500900168374296
-Current best: 0.7500900168374296 , at epoch 1
+Train loss: 0.11070068875671099
+Averge precision: 0.7501655965805862
+Current best: 0.7501655965805862 , at epoch 1
 ----------
 Epoch 2/19
-Train loss: 0.0935403107348101
-Averge precision: 0.7819161549925882
-Current best: 0.7819161549925882 , at epoch 2
+Train loss: 0.09353843774625709
+Averge precision: 0.7818541314305623
+Current best: 0.7818541314305623 , at epoch 2
 ----------
 Epoch 3/19
-Train loss: 0.08333795896455562
-Averge precision: 0.7972530910241131
-Current best: 0.7972530910241131 , at epoch 3
+Train loss: 0.08333724435398032
+Averge precision: 0.7972302027398264
+Current best: 0.7972302027398264 , at epoch 3
 ----------
 Epoch 4/19
-Train loss: 0.07485881876512612
-Averge precision: 0.8061167877223904
-Current best: 0.8061167877223904 , at epoch 4
+Train loss: 0.07486333121550816
+Averge precision: 0.8060646009482125
+Current best: 0.8060646009482125 , at epoch 4
 ----------
 Epoch 5/19
-Train loss: 0.06826048077984229
-Averge precision: 0.8125973958077195
-Current best: 0.8125973958077195 , at epoch 5
+Train loss: 0.06826283256185121
+Averge precision: 0.8125859269625213
+Current best: 0.8125859269625213 , at epoch 5
 ----------
 Epoch 6/19
-Train loss: 0.061859784679039895
-Averge precision: 0.8185036607811218
-Current best: 0.8185036607811218 , at epoch 6
+Train loss: 0.06184980083860499
+Averge precision: 0.8184935339649764
+Current best: 0.8184935339649764 , at epoch 6
 ----------
 Epoch 7/19
-Train loss: 0.056165249529164595
-Averge precision: 0.8214337767379731
-Current best: 0.8214337767379731 , at epoch 7
+Train loss: 0.05615101494519404
+Averge precision: 0.8213274389914069
+Current best: 0.8213274389914069 , at epoch 7
 ----------
 Epoch 8/19
-Train loss: 0.05029785497811254
-Averge precision: 0.8232762919735774
-Current best: 0.8232762919735774 , at epoch 8
+Train loss: 0.050293455451893405
+Averge precision: 0.8232207639774911
+Current best: 0.8232207639774911 , at epoch 8
 ----------
 Epoch 9/19
-Train loss: 0.045042803053166616
-Averge precision: 0.8236583639701915
-Current best: 0.8236583639701915 , at epoch 9
+Train loss: 0.04503621337883299
+Averge precision: 0.8234787014095322
+Current best: 0.8234787014095322 , at epoch 9
 ----------
 Epoch 10/19
-Train loss: 0.03988321427276681
-Averge precision: 0.8246352556252236
-Current best: 0.8246352556252236 , at epoch 10
+Train loss: 0.039873964907653506
+Averge precision: 0.8246267299813178
+Current best: 0.8246267299813178 , at epoch 10
 ----------
 Epoch 11/19
-Train loss: 0.034701605030860984
-Averge precision: 0.825547812839854
-Current best: 0.825547812839854 , at epoch 11
+Train loss: 0.03467881047900496
+Averge precision: 0.8255220010438566
+Current best: 0.8255220010438566 , at epoch 11
 ----------
 Epoch 12/19
-Train loss: 0.030861530036733135
-Averge precision: 0.8246825309961148
+Train loss: 0.03086388163143696
+Averge precision: 0.8245887760346597
 ----------
 Epoch 13/19
-Train loss: 0.026484335590590977
-Averge precision: 0.8249030172854924
+Train loss: 0.026456782807642854
+Averge precision: 0.8247589087242396
 ----------
 Epoch 14/19
-Train loss: 0.022970958201828616
-Averge precision: 0.8222694328867688
+Train loss: 0.02296007732605801
+Averge precision: 0.8224383937437236
 ----------
 Epoch 15/19
-Train loss: 0.020034746053581798
-Averge precision: 0.8227235857271497
+Train loss: 0.020015178055778227
+Averge precision: 0.8227395208116188
 ----------
 Epoch 16/19
-Train loss: 0.017232183658377417
-Averge precision: 0.8234168302567729
+Train loss: 0.017212666586749047
+Averge precision: 0.8233646736310984
 ----------
 Epoch 17/19
-Train loss: 0.015165572200365905
-Averge precision: 0.8214794406742891
+Train loss: 0.015154195600839634
+Averge precision: 0.8216159701587122
 ----------
 Epoch 18/19
-Train loss: 0.013500002150387404
-Averge precision: 0.8200945702142202
+Train loss: 0.013488358791979998
+Averge precision: 0.8202339498937073
 ----------
 Epoch 19/19
-Train loss: 0.011935302225467046
-Averge precision: 0.8200133626606627
+Train loss: 0.011923836029067053
+Averge precision: 0.8199348650941458
 Training completed for learn rate = 0.01.
 Best epoch: 11 
-Best performance: 0.825547812839854
+Best performance: 0.8255220010438566
 ----------
 
 Learn rate: 0.005
 ----------
 Epoch 0/19
-Train loss: 0.010853092105507684
-Averge precision: 0.820868722633942
-Current best: 0.820868722633942 , at epoch 0
+Train loss: 0.21713134030390052
+Averge precision: 0.5664738834102412
+Current best: 0.5664738834102412 , at epoch 0
 ----------
 Epoch 1/19
-Train loss: 0.009941301792443798
-Averge precision: 0.8201346801982543
+Train loss: 0.13834170447714503
+Averge precision: 0.6842517250678357
+Current best: 0.6842517250678357 , at epoch 1
 ----------
 Epoch 2/19
-Train loss: 0.00945417645423772
-Averge precision: 0.8200281795478176
+Train loss: 0.1152982619804377
+Averge precision: 0.7263723188219144
+Current best: 0.7263723188219144 , at epoch 2
 ----------
 Epoch 3/19
-Train loss: 0.009113797899751856
-Averge precision: 0.8201075971249218
+Train loss: 0.10266299312674133
+Averge precision: 0.7504928057809909
+Current best: 0.7504928057809909 , at epoch 3
 ----------
 Epoch 4/19
-Train loss: 0.008809690855381042
-Averge precision: 0.819720466671608
+Train loss: 0.09486741426936741
+Averge precision: 0.7671800303469759
+Current best: 0.7671800303469759 , at epoch 4
 ----------
 Epoch 5/19
-Train loss: 0.008736639356438342
-Averge precision: 0.8190362710654095
+Train loss: 0.08873061789980148
+Averge precision: 0.7800826917902443
+Current best: 0.7800826917902443 , at epoch 5
 ----------
 Epoch 6/19
-Train loss: 0.008068771723283236
-Averge precision: 0.8199483660000517
+Train loss: 0.08311502408631687
+Averge precision: 0.7893354222485933
+Current best: 0.7893354222485933 , at epoch 6
 ----------
 Epoch 7/19
-Train loss: 0.007689493115179699
-Averge precision: 0.8187216102634272
+Train loss: 0.07934973628244586
+Averge precision: 0.7957760286413785
+Current best: 0.7957760286413785 , at epoch 7
 ----------
 Epoch 8/19
-Train loss: 0.0076334988308144345
-Averge precision: 0.8185062665828264
+Train loss: 0.07463602320025753
+Averge precision: 0.8008089906072584
+Current best: 0.8008089906072584 , at epoch 8
 ----------
 Epoch 9/19
-Train loss: 0.0073311803888467105
-Averge precision: 0.8180063372986142
+Train loss: 0.07165771876799994
+Averge precision: 0.8059801449225452
+Current best: 0.8059801449225452 , at epoch 9
 ----------
 Epoch 10/19
-Train loss: 0.007085087506215
-Averge precision: 0.8182305841074827
+Train loss: 0.06817345004840936
+Averge precision: 0.8103898437288928
+Current best: 0.8103898437288928 , at epoch 10
 ----------
 Epoch 11/19
-Train loss: 0.006846481978414611
-Averge precision: 0.8181887497332667
+Train loss: 0.06462708714954014
+Averge precision: 0.8139322484536182
+Current best: 0.8139322484536182 , at epoch 11
 ----------
 Epoch 12/19
-Train loss: 0.006753917317837477
-Averge precision: 0.8181042928782185
+Train loss: 0.0617907566314969
+Averge precision: 0.8163257827960351
+Current best: 0.8163257827960351 , at epoch 12
 ----------
 Epoch 13/19
-Train loss: 0.006602599519674338
-Averge precision: 0.8182483657242174
+Train loss: 0.05797244298308255
+Averge precision: 0.8178190897707704
+Current best: 0.8178190897707704 , at epoch 13
 ----------
 Epoch 14/19
-Train loss: 0.006405451056656724
-Averge precision: 0.8170086716796267
+Train loss: 0.0547716049217312
+Averge precision: 0.8197984632308911
+Current best: 0.8197984632308911 , at epoch 14
 ----------
 Epoch 15/19
-Train loss: 0.006087745209458654
-Averge precision: 0.817397831734989
+Train loss: 0.05197148010467684
+Averge precision: 0.8215891170076841
+Current best: 0.8215891170076841 , at epoch 15
 ----------
 Epoch 16/19
-Train loss: 0.006131652183310446
-Averge precision: 0.8169096105709703
+Train loss: 0.04924274803082037
+Averge precision: 0.8225340715730312
+Current best: 0.8225340715730312 , at epoch 16
 ----------
 Epoch 17/19
-Train loss: 0.006013056007083817
-Averge precision: 0.8169972141662838
+Train loss: 0.04673009904819494
+Averge precision: 0.8231531010051942
+Current best: 0.8231531010051942 , at epoch 17
 ----------
 Epoch 18/19
-Train loss: 0.005838843325267458
-Averge precision: 0.8165772591463852
+Train loss: 0.04362473012515287
+Averge precision: 0.8240525944080928
+Current best: 0.8240525944080928 , at epoch 18
 ----------
 Epoch 19/19
-Train loss: 0.005788384239558734
-Averge precision: 0.8170822186196137
+Train loss: 0.04080127644763645
+Averge precision: 0.8252145351577591
+Current best: 0.8252145351577591 , at epoch 19
 Training completed for learn rate = 0.005.
-Best epoch: 0 
-Best performance: 0.820868722633942
+Best epoch: 19 
+Best performance: 0.8252145351577591
 ----------
 
 Learn rate: 0.001
 ----------
 Epoch 0/19
-Train loss: 0.005476129634108124
-Averge precision: 0.8169681748447845
-Current best: 0.8169681748447845 , at epoch 0
+Train loss: 0.29785719788607273
+Averge precision: 0.18767859674425172
+Current best: 0.18767859674425172 , at epoch 0
 ----------
 Epoch 1/19
-Train loss: 0.0055213113791470585
-Averge precision: 0.8161972889530531
+Train loss: 0.20980243875993695
+Averge precision: 0.33270355913631033
+Current best: 0.33270355913631033 , at epoch 1
 ----------
 Epoch 2/19
-Train loss: 0.005257147040436638
-Averge precision: 0.8163026581400018
+Train loss: 0.18895161135236643
+Averge precision: 0.4463561091089557
+Current best: 0.4463561091089557 , at epoch 2
 ----------
 Epoch 3/19
-Train loss: 0.0054168376587747525
-Averge precision: 0.8166332066210247
+Train loss: 0.1729186985579283
+Averge precision: 0.5264837710988333
+Current best: 0.5264837710988333 , at epoch 3
 ----------
 Epoch 4/19
-Train loss: 0.0055042763862384264
-Averge precision: 0.8163469407367087
+Train loss: 0.16061621005308693
+Averge precision: 0.5767363321795747
+Current best: 0.5767363321795747 , at epoch 4
 ----------
 Epoch 5/19
-Train loss: 0.005509864421842318
-Averge precision: 0.8168973544145457
+Train loss: 0.15031075473437763
+Averge precision: 0.6105602260902813
+Current best: 0.6105602260902813 , at epoch 5
 ----------
 Epoch 6/19
-Train loss: 0.005554170795201256
-Averge precision: 0.8158196561697444
+Train loss: 0.14248635390950315
+Averge precision: 0.6348430436582231
+Current best: 0.6348430436582231 , at epoch 6
 ----------
 Epoch 7/19
-Train loss: 0.005387213326959387
-Averge precision: 0.8175503910661032
-Current best: 0.8175503910661032 , at epoch 7
+Train loss: 0.13567375912013666
+Averge precision: 0.654457443964781
+Current best: 0.654457443964781 , at epoch 7
 ----------
 Epoch 8/19
-Train loss: 0.005360480247055019
-Averge precision: 0.8166634138843006
+Train loss: 0.13014473920094902
+Averge precision: 0.669721894960292
+Current best: 0.669721894960292 , at epoch 8
 ----------
 Epoch 9/19
-Train loss: 0.005486527245814324
-Averge precision: 0.8165030763385765
+Train loss: 0.12485461111841255
+Averge precision: 0.6814227994637028
+Current best: 0.6814227994637028 , at epoch 9
 ----------
 Epoch 10/19
-Train loss: 0.005176085037018001
-Averge precision: 0.8165668617760196
+Train loss: 0.1206456732899783
+Averge precision: 0.689955528738856
+Current best: 0.689955528738856 , at epoch 10
 ----------
 Epoch 11/19
-Train loss: 0.005388235058063152
-Averge precision: 0.815868435425706
+Train loss: 0.11707368422320436
+Averge precision: 0.6997042392038095
+Current best: 0.6997042392038095 , at epoch 11
 ----------
 Epoch 12/19
-Train loss: 0.005153505512716134
-Averge precision: 0.816185566384075
+Train loss: 0.11372783068338586
+Averge precision: 0.7070557828460982
+Current best: 0.7070557828460982 , at epoch 12
 ----------
 Epoch 13/19
-Train loss: 0.005290855575540212
-Averge precision: 0.8162075106905915
+Train loss: 0.11116654113684286
+Averge precision: 0.7147748355261958
+Current best: 0.7147748355261958 , at epoch 13
 ----------
 Epoch 14/19
-Train loss: 0.005290106937871965
-Averge precision: 0.8165335012966546
+Train loss: 0.10851773844417913
+Averge precision: 0.7219872317054208
+Current best: 0.7219872317054208 , at epoch 14
 ----------
 Epoch 15/19
-Train loss: 0.0053076415918455275
-Averge precision: 0.816055877297823
+Train loss: 0.105834020665904
+Averge precision: 0.7275061776953377
+Current best: 0.7275061776953377 , at epoch 15
 ----------
 Epoch 16/19
-Train loss: 0.005005700223657756
-Averge precision: 0.8160904929257254
+Train loss: 0.10339778291280043
+Averge precision: 0.7339572279240495
+Current best: 0.7339572279240495 , at epoch 16
 ----------
 Epoch 17/19
-Train loss: 0.0050560139410988575
-Averge precision: 0.8159600130418475
+Train loss: 0.1023212130592522
+Averge precision: 0.7390453104422241
+Current best: 0.7390453104422241 , at epoch 17
 ----------
 Epoch 18/19
-Train loss: 0.005234426181430424
-Averge precision: 0.815897410172847
+Train loss: 0.10021084005939228
+Averge precision: 0.743056243208433
+Current best: 0.743056243208433 , at epoch 18
 ----------
 Epoch 19/19
-Train loss: 0.005088183327770516
-Averge precision: 0.8154096415810608
+Train loss: 0.09828076303504699
+Averge precision: 0.7475866650418049
+Current best: 0.7475866650418049 , at epoch 19
 Training completed for learn rate = 0.001.
-Best epoch: 7 
-Best performance: 0.8175503910661032
+Best epoch: 19 
+Best performance: 0.7475866650418049
 ----------
 
-Best accuracies: [0.825547812839854, 0.820868722633942, 0.8175503910661032]
+Best accuracies: [0.8255220010438566, 0.8252145351577591, 0.7475866650418049]
 Best learn rate: 0.01
+
 Finished training.
