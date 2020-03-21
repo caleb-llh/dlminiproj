@@ -143,7 +143,7 @@ def results(device, loadervl, validset):
 
     ## Get tail accuracy
     # indices of top and bottom 50 images for each class, size = (50,20)
-    idx_high, idx_low = utils.top_50_imgs(model,loadervl,device)\
+    idx_high, idx_low = utils.top_50_imgs(model,loadervl,device)
     # dataset to print the images
     validset2=data.PascalVOC(args.data_dir,'val',transforms.Compose([ 
                                     transforms.CenterCrop(280),
@@ -161,19 +161,19 @@ def results(device, loadervl, validset):
         class_name = validset2.list_image_sets()[i]
         plt.figure()
         plot_title = class_name+"_top5"
-        plt.title(plot_title)
+        plt.suptitle(plot_title)
         time.sleep(0.5)
         for i,j in enumerate(idx_high[:5,i]): # iterate through top 5 highest scoring images
-            plt.subplot(1,5,i+1)
+            plt.subplot(2,5,i+1)
             plt.imshow(np.transpose(validset2[j][0].numpy(),(1,2,0)))
             time.sleep(0.5)
         plt.savefig(os.path.join(args.saved_img_dir,plot_title))
 
-        plt.figure()
-        plot_title = class_name+"_bottom5"
-        plot_title.title(plot_title)
+        # plt.figure()
+        # plot_title = class_name+"_bottom5"
+        plt.suptitle(plot_title)
         for i,j in enumerate(idx_low[:5,i]): # iterate through top 5 lowest scoring images
-            plt.subplot(1,5,i+1)
+            plt.subplot(2,5,i+6)
             plt.imshow(np.transpose(validset2[j][0].numpy(),(1,2,0)))
             time.sleep(0.5)
         plt.savefig(os.path.join(args.saved_img_dir,plot_title))
