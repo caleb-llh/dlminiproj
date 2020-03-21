@@ -223,6 +223,7 @@ def main():
         print("\nFinished producing results. Tail accuracy, top 5 and bottom 5 images are in saved_img folder")
     if args.run == 'plot':
         utils.plot(args)
+        print("\nFinished plotting.")
 
 if __name__=='__main__':
     args = parser.arg_parse()

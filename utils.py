@@ -16,6 +16,7 @@ import torchvision.models as models
 from torchvision import transforms
 from torch.utils.data.dataset import Dataset
 
+import main
 
 def save_model(model, save_path):
     torch.save(model.state_dict(),save_path) 
@@ -113,4 +114,16 @@ def top_50_imgs(model, dataloader, device):
 
 
 def plot(args):
-  return
+  for lr in main.LEARN_RATES:
+    with open(os.path.join(args.out_dir,'train_loss_{}.pkl'.format(str(lr)[2:])), 'rb') as f:
+      train_losses = pickle.load(f)
+    with open(os.path.join(args.out_dir,'val_acc_{}.pkl'.format(str(lr)[2:])), 'rb') as f:
+      val_accs = pickle.load(f)
+    epochs = list(range(len(train_losses)))
+    cols = ["Train Loss", "Average Precision Measure"]
+    celltext=[]
+    for i in epochs:
+      celltext.append([train_losses[i],val_accs[i]])
+    plt.figure()
+    plt.table(cellText=celltext, rowLabels=epochs, colLabels=cols, loc='center')
+    plt.savefig(os.path.join(args.out_dir,"train_table_{}".format(str(lr)[2:])), bbox_inches='tight')
