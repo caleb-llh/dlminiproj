@@ -75,14 +75,14 @@ def train_modelcv(learn_rate, dataloader_cvtrain, dataloader_cvtest, model, crit
 
 ### training pipeline for model selection
 def train(device, loadertr, loadervl): 
-    model = models.resnet18(pretrained=True)
-    model.fc = nn.Linear(512,20)
-    model.to(device)
     criterion = nn.BCEWithLogitsLoss()
     best_measure_ls = []
     for learn_rate in LEARN_RATES:
         title = "Learn rate: {}".format(learn_rate)
         print(title)
+        model = models.resnet18(pretrained=True) #reinitialise model
+        model.fc = nn.Linear(512,20)
+        model.to(device)
         optimizer = torch.optim.SGD(model.parameters(),lr=learn_rate, momentum=0.9, weight_decay=args.weight_decay)
         best_epoch, best_measure, train_loss_ls, val_acc_ls = train_modelcv(learn_rate=learn_rate,
                                                                                                     dataloader_cvtrain=loadertr, 
