@@ -126,5 +126,7 @@ def plot(args):
     for i in epochs:
       celltext.append([train_losses[i],val_accs[i]])
     plt.figure()
+    plt.axis('off')
+    plt.suptitle("Learning Rate = {}".format(str(lr)))
     plt.table(cellText=celltext, rowLabels=epochs, colLabels=cols, loc='center')
     plt.savefig(os.path.join(args.saved_img_dir,"train_table_{}".format(str(lr)[2:])), bbox_inches='tight')
