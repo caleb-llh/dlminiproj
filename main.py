@@ -139,9 +139,16 @@ def results(device, loadervl, validset):
     ## Get class-wise average precision and mean average precision
     class_precision, ave_precision = utils.evaluate(model, loadervl, device)
     print("Class-wise average precision")
-    print('-' * 10)    
+    print('-' * 10)
+    celltext = []    
     for i in range(len(class_precision)):
+        celltext.append([validset.list_image_sets()[i],class_precision[i]])
         print("{}: {}".format(validset.list_image_sets()[i],class_precision[i]))
+    plt.figure()
+    plt.axis('off')
+    plt.suptitle("Class-wise average precision")
+    plt.table(cellText=celltext, loc='center')
+    plt.savefig(os.path.join(args.saved_img_dir,"classwise_aveprec{}"), bbox_inches='tight')
     print("\nMean average precision: {}".format(ave_precision))
 
     ## Get tail accuracy
