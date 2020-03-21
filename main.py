@@ -168,7 +168,6 @@ def results(device, loadervl, validset):
     plt.xlabel('t')
     plt.savefig(os.path.join(args.saved_img_dir,"tail_acc_graph"), bbox_inches='tight')
 
-
     for i in random.sample(range(20), 5): # 5 random classes out of 20
         class_name = validset2.list_image_sets()[i]
         plt.figure()
@@ -176,14 +175,14 @@ def results(device, loadervl, validset):
         plot_title = class_name+": top and bottom 5"
         plt.suptitle(plot_title)
         time.sleep(0.5)
-        for i,j in enumerate(idx_high[:5,i]): # iterate through top 5 highest scoring images
-            plt.subplot(2,5,i+1)
+        for idx,j in enumerate(idx_high[:5,i]): # iterate through top 5 highest scoring images
+            plt.subplot(2,5,idx+1)
             plt.axis('off')
             plt.imshow(np.transpose(validset2.__getitem__(j)[0].numpy(),(1,2,0)))
             time.sleep(0.5)
 
-        for i,j in enumerate(idx_low[:5,i]): # iterate through top 5 lowest scoring images
-            plt.subplot(2,5,i+6)
+        for idx,j in enumerate(idx_low[:5,i]): # iterate through top 5 lowest scoring images
+            plt.subplot(2,5,idx+6)
             plt.axis('off')
             plt.imshow(np.transpose(validset2.__getitem__(j)[0].numpy(),(1,2,0)))
             time.sleep(0.5)
