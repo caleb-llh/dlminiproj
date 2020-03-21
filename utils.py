@@ -70,6 +70,7 @@ def tailacc(model, dataloader, t, device):
         else:
             current = torch.cat((current,cpuout), dim=0)    #concatenating outputs
             lab = torch.cat((lab,labels.to('cpu')), dim=0)  #concatenating labels
+        print("\r{}%".format(100*ctr/len(dataloader)),end='') # epoch progress 
 
   pred = torch.where(current>=t,torch.ones(current.size()),torch.zeros(current.size()))   #(condition, value for true, value for false)
   score = pred * lab
@@ -92,9 +93,11 @@ def top_50_imgs(model, dataloader, device):
             current = cpuout.clone()
           else:
             current = torch.cat((current,cpuout), dim=0)      #creating large tensor of size (dataset size, 20)
+          print("\r{}%".format(100*ctr/len(dataloader)),end='') # epoch progress 
 
   scores = current.numpy()
   idx_high = np.argpartition(-scores,range(50),axis=0)[:50]   #top 50 images, size (50,20)
   idx_low = np.argpartition(scores,range(50),axis=0)[:50]     #bottom 50 images, size (50,20)
+  
   
   return idx_high,idx_low

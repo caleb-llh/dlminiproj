@@ -136,13 +136,14 @@ def results(device, loadervl, validset):
     model.to(device)
     
     ## Get class-wise average precision and mean average precision
-    class_precision, ave_precision = utils.evaluate(model, loadervl, device)
-    print("Class-wise average precision: {}".format(class_precision))
-    print("Mean average precision: {}".format(ave_precision))
+    # class_precision, ave_precision = utils.evaluate(model, loadervl, device)
+    # print("\rClass-wise average precision: {}".format(class_precision))
+    # print("Mean average precision: {}".format(ave_precision))
 
     ## Get tail accuracy
     # indices of top and bottom 50 images for each class, size = (50,20)
-    idx_high, idx_low = utils.top_50_imgs(model,loadervl,device).numpy() 
+    # idx_high, idx_low = utils.top_50_imgs(model,loadervl,device).numpy()
+    print(utils.top_50_imgs(model,loadervl,device)) 
     # dataset to print the images
     validset2=data.PascalVOC(args.data_dir,'val',transforms.Compose([ 
                                     transforms.CenterCrop(280),
@@ -154,7 +155,7 @@ def results(device, loadervl, validset):
                                 
 
     tail_acc = utils.tailacc(model,loadervl_tail,0.5,device).item() # change t value
-    print('Tail accuracy',tail_acc)
+    print('\rTail accuracy',tail_acc)
 
     for i in random.sample(range(20), 5): # 5 random classes out of 20
         class_name = validset2.list_image_sets()[i]
