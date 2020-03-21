@@ -115,9 +115,9 @@ def top_50_imgs(model, dataloader, device):
 
 def plot(args):
   for lr in main.LEARN_RATES:
-    with open(os.path.join(args.out_dir,'train_loss_{}.pkl'.format(str(lr)[2:])), 'rb') as f:
+    with open(os.path.join(args.saved_pkl_dir,'train_loss_{}.pkl'.format(str(lr)[2:])), 'rb') as f:
       train_losses = pickle.load(f)
-    with open(os.path.join(args.out_dir,'val_acc_{}.pkl'.format(str(lr)[2:])), 'rb') as f:
+    with open(os.path.join(args.saved_pkl_dir,'val_acc_{}.pkl'.format(str(lr)[2:])), 'rb') as f:
       val_accs = pickle.load(f)
     epochs = list(range(len(train_losses)))
     cols = ["Train Loss", "Average Precision Measure"]
@@ -126,4 +126,4 @@ def plot(args):
       celltext.append([train_losses[i],val_accs[i]])
     plt.figure()
     plt.table(cellText=celltext, rowLabels=epochs, colLabels=cols, loc='center')
-    plt.savefig(os.path.join(args.out_dir,"train_table_{}".format(str(lr)[2:])), bbox_inches='tight')
+    plt.savefig(os.path.join(args.saved_img_dir,"train_table_{}".format(str(lr)[2:])), bbox_inches='tight')
