@@ -154,31 +154,26 @@ def results(device, loadervl, validset):
                                             sampler=torch.utils.data.SubsetRandomSampler(idx_high.flatten().tolist()))
                                 
 
-    tail_acc = utils.tailacc(model,loadervl_tail,0.5,device).item() # change t value
-    print('Tail accuracy',tail_acc)
+    # tail_acc = utils.tailacc(model,loadervl_tail,0.5,device).item() # change t value
+    # print('Tail accuracy',tail_acc)
 
     for i in random.sample(range(20), 5): # 5 random classes out of 20
         class_name = validset2.list_image_sets()[i]
         plt.figure()
-        fig, axs = plt.subplots(2)
         fig_title = class_name+"_topbottom5"
-        plot_title = class_name+"_top5"
-        axs[0].set_title(plot_title)
+        plot_title = class_name+" top and bottom 5"
+        plt.suptitle(plot_title)
         time.sleep(0.5)
         for i,j in enumerate(idx_high[:5,i]): # iterate through top 5 highest scoring images
-            axs[0].subplot(1,5,i+1)
-            axs[0].axis('off')
-            axs[0].imshow(np.transpose(validset2[j][0].numpy(),(1,2,0)))
+            plt.subplot(2,5,i+1)
+            plt.axis('off')
+            plt.imshow(np.transpose(validset2[j][0].numpy(),(1,2,0)))
             time.sleep(0.5)
-        # plt.savefig(os.path.join(args.saved_img_dir,plot_title))
 
-        # plt.figure()
-        plot_title = class_name+"_bottom5"
-        axs[1].set_title(plot_title)
         for i,j in enumerate(idx_low[:5,i]): # iterate through top 5 lowest scoring images
-            axs[1].subplot(1,5,i+1)
-            axs[1].axis('off')
-            axs[1].imshow(np.transpose(validset2[j][0].numpy(),(1,2,0)))
+            plt.subplot(2,5,i+6)
+            plt.axis('off')
+            plt.imshow(np.transpose(validset2[j][0].numpy(),(1,2,0)))
             time.sleep(0.5)
         plt.savefig(os.path.join(args.saved_img_dir,fig_title))
 
