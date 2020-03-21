@@ -37,7 +37,7 @@ def train_epoch(model,  trainloader,  criterion, device, optimizer):
         loss.backward()
         optimizer.step()
         losses.append(loss.item())
-        print("\r{}%".format(100*batch_idx/len(trainloader)),end='') # epoch progress
+        print("\r{} % ".format(100*batch_idx/len(trainloader)),end='') # epoch progress
 
     epoch_loss = sum(losses)/len(trainloader)
     return epoch_loss
