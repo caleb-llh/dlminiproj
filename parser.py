@@ -35,7 +35,7 @@ def arg_parse():
                     help='In homework, please always set to 0')
     parser.add_argument('--workers', default=4, type=int,
                     help="number of data loading workers (default: 4)")
-    parser.add_argument('--best_learn_rate', default=0.005, type=float,
+    parser.add_argument('--best_learn_rate', default=0.01, type=float,
                     help="best learning rate selected")            
     
     
