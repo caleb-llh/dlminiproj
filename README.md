@@ -10,7 +10,7 @@ utils.py – Helper functions to get class-wise and mean average precision score
 main.py – Main method, to run training or to reproduce results.
 
 # To train, run:
-python main.py --run train --data_dir <path to PASCAL VOC data directory>
+python main.py --run train --data_dir <"path to PASCAL VOC data directory">
 
 # To reproduce results, run:
-python main.py --run results --data_dir <path to PASCAL VOC data directory>
+python main.py --run results --data_dir <"path to PASCAL VOC data directory">
