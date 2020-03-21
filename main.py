@@ -158,10 +158,10 @@ def results(device, loadervl, validset):
                                 
 
     t_ls, class_wise, avg = utils.tailacc(model,loadervl_tail,device) 
-    # print('Tail accuracy',tail_acc)
-    print("Class-wise tail accuracy shape:")
-    print(np.array(class_wise).shape)
     
+    ## save tail acc information
+    with open(os.path.join(args.saved_pkl_dir,'classwise_tailacc'), 'wb') as f:
+            pickle.dump(class_wise, f)
     plt.figure()
     plt.plot(t_ls,avg)
     plt.ylabel('Tail accuracy')
@@ -220,7 +220,9 @@ def main():
         print("\nFinished training.")
     if args.run == 'results':
         results(device, loadervl, validset)
-        print("\nFinished producing results.")
+        print("\nFinished producing results. Tail accuracy, top 5 and bottom 5 images are in saved_img folder")
+    if args.run == 'plot':
+        utils.plot(args)
 
 if __name__=='__main__':
     args = parser.arg_parse()

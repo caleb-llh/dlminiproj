@@ -109,5 +109,8 @@ def top_50_imgs(model, dataloader, device):
   idx_high = np.argpartition(-scores,range(50),axis=0)[:50]   #top 50 images, size (50,20)
   idx_low = np.argpartition(scores,range(50),axis=0)[:50]     #bottom 50 images, size (50,20)
   
-  
   return idx_high,idx_low
+
+
+def plot(args):
+  return

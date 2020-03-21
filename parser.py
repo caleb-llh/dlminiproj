@@ -6,7 +6,7 @@ def arg_parse():
     parser = argparse.ArgumentParser(description='Deep Learning Mini Project')
     
     # Mode
-    parser.add_argument('--run', type=str, default='train', help="train/results")
+    parser.add_argument('--run', type=str, default='train', help="train/results/plot")
     
     # Input directories
     parser.add_argument('--data_dir', type=str, default='/content/VOC2012/', 
