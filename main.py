@@ -157,8 +157,11 @@ def results(device, loadervl, validset):
                                             sampler=torch.utils.data.SubsetRandomSampler(idx_high.flatten().tolist()))
                                 
 
-    tail_acc = utils.tailacc(model,loadervl_tail,0.5,device).item() # change t value
-    print('Tail accuracy',tail_acc)
+    t_ls, class_wise, avg = utils.tailacc(model,loadervl_tail,0.5,device).item() # change t value
+    # print('Tail accuracy',tail_acc)
+    print(t_ls)
+    print(class_wise)
+    print(avg)
 
     for i in random.sample(range(20), 5): # 5 random classes out of 20
         class_name = validset2.list_image_sets()[i]

@@ -72,14 +72,22 @@ def tailacc(model, dataloader, t, device):
             current = torch.cat((current,cpuout), dim=0)    #concatenating outputs
             lab = torch.cat((lab,labels.to('cpu')), dim=0)  #concatenating labels
         print("\rtailacc() {} % ".format(100*ctr/len(dataloader)),end='') # epoch progress 
-    print("\r",end='')
-  pred = torch.where(current>=t,torch.ones(current.size()),torch.zeros(current.size()))   #(condition, value for true, value for false)
-  score = pred * lab
-  score = torch.einsum('ij->', score)
-  denominator = torch.einsum('ij->', pred)
-
-  acc = (1/denominator) * score
-  return acc
+  print("\r",end='')
+  current = torch.nn.functional.sigmoid(current)
+  max_t = torch.min(torch.max(current, dim=0)[0]).item()   #max f(x)
+  interval = max_t/20
+  t_ls = [ i*interval for i in range(21)]     # list of t values
+  class_wise=[]                                     # list of lists. Each inner list (len 20) contains class wise tail accuracy
+  avg=[]                                            # list of averaged class wise accuracy
+  for t in t_ls:
+    pred = torch.where(current>=t,torch.ones(current.size()),torch.zeros(current.size()))   #(condition, value for true, value for false)
+    score = pred * lab
+    score = torch.einsum('ij->j', score)
+    denominator = torch.einsum('ij->j', pred)
+    acc = ((1/denominator) * score).numpy()
+    class_wise.append(acc.tolist())
+    avg.append(np.mean(acc))
+  return t_ls, class_wise, avg
 
 
 def top_50_imgs(model, dataloader, device):
