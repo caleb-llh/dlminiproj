@@ -163,7 +163,7 @@ def results(device, loadervl, validset):
         fig, axs = plt.subplots(2)
         fig_title = class_name+"_topbottom5"
         plot_title = class_name+"_top5"
-        axs[0].suptitle(plot_title)
+        axs[0].set_title(plot_title)
         time.sleep(0.5)
         for i,j in enumerate(idx_high[:5,i]): # iterate through top 5 highest scoring images
             axs[0].subplot(1,5,i+1)
@@ -174,7 +174,7 @@ def results(device, loadervl, validset):
 
         # plt.figure()
         plot_title = class_name+"_bottom5"
-        axs[1].suptitle(plot_title)
+        axs[1].set_title(plot_title)
         for i,j in enumerate(idx_low[:5,i]): # iterate through top 5 lowest scoring images
             axs[1].subplot(1,5,i+1)
             axs[1].axis('off')
