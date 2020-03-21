@@ -159,9 +159,15 @@ def results(device, loadervl, validset):
 
     t_ls, class_wise, avg = utils.tailacc(model,loadervl_tail,0.5,device) # change t value
     # print('Tail accuracy',tail_acc)
-    print(t_ls)
-    print(class_wise)
-    print(avg)
+    print("Class-wise tail accuracy shape:")
+    print(class_wise.numpy().shape)
+    
+    plt.figure()
+    plt.plot(t_ls,avg)
+    plt.ylabel('Tail accuracy')
+    plt.xlabel('t')
+    plt.savefig(os.path.join(args.saved_img_dir,"tail_acc_graph"), bbox_inches='tight')
+
 
     for i in random.sample(range(20), 5): # 5 random classes out of 20
         class_name = validset2.list_image_sets()[i]

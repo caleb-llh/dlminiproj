@@ -73,7 +73,7 @@ def tailacc(model, dataloader, t, device):
             lab = torch.cat((lab,labels.to('cpu')), dim=0)  #concatenating labels
         print("\rtailacc() {} % ".format(100*ctr/len(dataloader)),end='') # epoch progress 
   print("\r",end='')
-  current = torch.nn.functional.sigmoid(current)
+  current = torch.sigmoid(current)
   max_t = torch.min(torch.max(current, dim=0)[0]).item()   #max f(x)
   interval = max_t/20
   t_ls = [ i*interval for i in range(21)]     # list of t values
